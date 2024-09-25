@@ -23,6 +23,10 @@
     margin: auto;
     padding-bottom: 20px;
   }
+
+.input-required {
+  color: red;
+}
   
 
 /*# sourceMappingURL=bootstrap.min.css.map */
