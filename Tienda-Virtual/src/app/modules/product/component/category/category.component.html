@@ -1,9 +1,52 @@
 <div class="body-content">
+  <nav class="navbar-content">
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Home
+                <span class="visually-hidden">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+              </div>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <input class="form-control me-sm-2" type="search" placeholder="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </nav>
+
     <div class=" card">
         <div class="card-header">
           <h1>Categorías
           </h1>
-          <button type="btn btn-primary btn-new" (click)="showModalForm()" >Nueva Categoria</button>
+          <button type="btn btn-primary btn-new" (click)="showModalForm()" id="boton" >Nueva Categoria</button>
           <div class="card-body">
             <table class="table table-dark">4200
               <thead>
@@ -35,24 +78,33 @@
     </div>
 </div>
 
-<div class="modal fade" id = "modalForm" tabindex="-1">
-  <div class="modal-dialog">
+<div class="modal fade" id = "modalForm" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-lg" >
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Region nueva</h5>
+        <h5 class="modal-title">Nueva categoria</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="form" id=" fm">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" >
           <div class="mb-3">
-            <label for="category" class="form-label">Categoria<span class="input-required">*</span></label>
-            <input type="text" class="form-control" id="category" placeholder="Region"   required>
+            <label for="category" class="form-label">nombre de la categoria<span class="input-required">*</span></label>
+            <input type="text"class="form-control" formControlName="category"  id="category" placeholder="nombre de la categoria" [ngClass]= "{'is-invalid': form.controls['category'].errors && submitted}">
+            @if (form.controls['category'].errors && submitted){
+              <small class="invalid-feedback">Favor de ingresar un nombre de categoria valido.</small>
+            }
           </div>
           <div class="mb-3">
             <label for="tag" class="form-label">Tag<span class="input-required"  >*</span></label>
-            <input type="text" class="form-control" id="tag"  required>
+            <input type="text" class="form-control" formControlName="tag" id="tag" placeholder="Tag de la categoria" [ngClass]= "{'is-invalid': form.controls['tag'].errors && submitted}">
+            @if (form.controls['tag'].errors && submitted){
+              <small class="invalid-feedback">Favor de ingresar un nombre de tag valido.</small>
+            }
           </div>
-          <button type="submit" class="btn btn-primary">Añadir</button>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary btn-save">Agregar</button>
+          </div>
+          
         </form>
       </div>
     </div>
