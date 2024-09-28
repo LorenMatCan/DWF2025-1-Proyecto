@@ -15,7 +15,7 @@ export class CategoryComponent {
   constructor(private categoryService:CategoryService){}
 
   ngOnInit(){
-    this.categories = this.categoryService.getCategories();
+    this.getCategories();
   }
 
   getCategories():void{
