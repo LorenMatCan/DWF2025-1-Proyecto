@@ -7,6 +7,9 @@ export class SwalMessages{
 
     // muestra mensaje de confirmación
     successMessage(message: string){
+        if (message === null || message === undefined) {
+            message = "Hubo un error en la operación";
+        }
         Swal.fire({
             position: 'top-end',
             icon: 'success',

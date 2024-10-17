@@ -21,7 +21,9 @@ declare var $: any;
 
 export class CategoryComponent {
 
-  categories: Category[]= [];
+  categories: any = [];
+
+  updated: number = 0; 
 
  
     form = this.formBuilder.group({
@@ -47,7 +49,38 @@ export class CategoryComponent {
   }
 
   getCategories():void{
-    this.categories = this.categoryService.getCategories();
+    this.categoryService.getCategories().subscribe({
+      next: (v) => {
+        this.categories = v;
+      },
+      error: (e) => {
+        this.swal.errorMessage("Hubo un error de conexión");
+      }
+  });
+  }
+
+  enableCategory(id: number):void{
+    this.categoryService.activateCategory(id).subscribe({
+      next: (v) => {
+        this.swal.successMessage("La categoria ha sido activada");
+        this.getCategories();
+      },
+      error: (e) => {
+        this.swal.errorMessage("No se pudo activar la categoria");
+      }
+    });
+  }
+  
+  disableCategory(id: number):void{
+    this.categoryService.deleteCategory(id).subscribe({
+      next: (v) => {
+        this.swal.successMessage("La categoria ha sido desactivada");
+        this.getCategories();
+      },
+      error: (e) => {
+        this.swal.errorMessage("No se pudo eliminar la categoria");
+      }
+    });
   }
 
   showModalForm(){
@@ -61,16 +94,53 @@ export class CategoryComponent {
     if(this.form.invalid) return;
     this.submitted = false;
 
-    let id = this.categories.length + 1; 
-    let region = new Category(id, this.form.controls['category'].value!, this.form.controls['tag'].value!, 1);
-    this.categories.push(region);
-
-    this.hideModalForm();
-    this.swal.successMessage("La categoria ha sido registrada")
-
+    if (this.updated == 0) {
+      this.onSubmitCreate();
+    } else {
+      this.onSubmitUpdate();
+    }
 
   }
 
+  onSubmitCreate() {
+    this.categoryService.createCategory(this.form.value).subscribe({
+      next: (v) => {
+        this.swal.successMessage("Se ha creado la categoria"); 
+        this.getCategories();
+        this.hideModalForm(); 
+      },
+      error: (e) => {
+        console.error(e);
+        this.swal.errorMessage("Error, no se pudo crear la categoria, vuelvalo a intentar"); 
+      }
+    });
+  }
+
+
+  onSubmitUpdate():void{
+    this.categoryService.updateCategory(this.form.value, this.updated).subscribe({
+      next: (v) => {
+        this.swal.successMessage("Se ha actualizado la categoria"); 
+        this.getCategories();
+        this.hideModalForm(); 
+      },
+      error: (e) => {
+        console.error(e);
+        this.swal.errorMessage("Error, no se pudo actualizar la categoria, vuelvalo a intentar"); 
+      }
+    });
+  }
+
+  updateCategory(category: Category):void{
+    this.updated = category.category_id;
+    this.form.reset();
+    this.form.controls['category'].setValue(category.category);
+    this.form.controls['tag'].setValue(category.tag);
+
+    this.submitted = false;
+    $("#modalForm").modal("show");
+
+  }
 
   hideModalForm(){
     $("#modalForm").modal("hide");

@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Category } from '../_model/category';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { api_dwb_uri } from '../../../shared/api-dwb-uri';
 
 
 @Injectable({
@@ -7,15 +10,41 @@ import { Category } from '../_model/category';
 })
 export class CategoryService {
 
-  constructor() { }
+  private source = '/category';
 
-  getCategories(): Category[] {
-    let categories: Category[] = [];
-    categories.push(new Category(1, 'Categoria 1', 'tag1', 1));
-    categories.push(new Category(2, 'Categoria 5', 'tag2', 1));
-    categories.push(new Category(3, 'Categoria 3', 'tag3', 0));
-    return categories;
-  
+  constructor(private http:HttpClient) { }
+
+  getCategories(): Observable<any> {
+    return this.http.get(api_dwb_uri+this.source);
   }
+
+  getCategory(id: number): Observable<any> {
+    return this.http.get(api_dwb_uri+this.source+'/'+id);
+  }
+
+  getActiveCategories(): Observable<any> {
+    return this.http.get(api_dwb_uri+this.source+'/active');
+  }
+
+  createCategory(category:any): Observable<any> {
+    return this.http.post(api_dwb_uri+this.source, category);
+  }
+
+  updateCategory(category: any, id: number): Observable<any> {
+    return this.http.put(api_dwb_uri + this.source + "/" + id, category);
+  }
+
+  deleteCategory(id: number): Observable<any> {
+    return this.http.delete(api_dwb_uri + this.source + '/' + id);
+
+  }
+
+  activateCategory(id: number): Observable<any> {
+    return this.http.put(api_dwb_uri + this.source +'/' + id + "/activate", null);
+  }
+
+
+  
+
 }
 
