@@ -14,6 +14,7 @@
                   <th scope="col">Categoria</th>
                   <th scope="col">Tag</th>
                   <th scope="col">Estado</th>
+                  <th scope="col">Editar</th>
                 </tr>
               </thead>
                 <tbody>
@@ -22,7 +23,18 @@
                             <td>{{item.category_id}}</td>
                             <td>{{item.category}}</td>
                             <td>{{item.tag}}</td>
-                            <td>{{item.status}}</td>
+                            <td>
+                              <a *ngIf="item.status == 0" (click)="enableCategory(item.category_id)">
+                                <div class="td-status td-status-active">{{"Inactivo"}}</div>
+                              </a>
+                              <a *ngIf="item.status == 1" (click)="disableCategory(item.category_id)">
+                                <div class="td-status td-status-inactive">{{"Activo"}}</div>
+                              </a>
+                            </td>
+                            <td>
+                              <a (click)="updateCategory(item)">
+                                <i class="ph ph-note-pencil icon-text-ul"></i>Editar
+                              </a>
                         <tr>
                             }
                     </tbody>
@@ -41,7 +53,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" >
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Nueva categoria</h5>
+        <h5 class="modal-title">{{updated==0? "Agregar": "Actualizar"}} Categoria</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
