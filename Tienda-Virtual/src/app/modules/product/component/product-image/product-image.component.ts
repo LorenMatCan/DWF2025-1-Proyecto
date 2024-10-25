@@ -7,6 +7,12 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { CategoryService } from '../../_service/category.service';
 import { Category } from '../../_model/category';
 import { Product } from '../../_model/ product';
+import { ProductImage } from '../../_model/product-image';
+import { ProductImageService } from '../../_service/product-image.service';
+import { NgxPhotoEditorService } from 'ngx-photo-editor';
+
+
+
 
 declare var $: any;
 
@@ -26,6 +32,7 @@ export class ProductImageComponent {
   submitted = false;
   categories: Category[] = [];
   id = 0;
+  productImgs: ProductImage[] = [];
 
   form = this.formBuilder.group({
     product: ["", [Validators.required]],
@@ -42,7 +49,9 @@ export class ProductImageComponent {
     private rutaActual: ActivatedRoute = new ActivatedRoute(), // ruta actual
     private productService: ProductService, 
     private formBuilder: FormBuilder,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private ngxService: NgxPhotoEditorService,
+    private productImageService: ProductImageService
   ){}
 
 
@@ -57,11 +66,25 @@ export class ProductImageComponent {
     next: (v) => {
       this.product = v;
       this.id = v.product_id;
+      this.getProductImages(v.product_id);
     },
     error: (e) => {
       this.swal.errorMessage("Hubo un error de conexión");
     }
     })
+  }
+
+  getProductImages(id:number){
+    this.productImageService.getProductImages(id).subscribe({
+      next: (v) => {
+        this.productImgs = v;
+        console.log(this.productImgs);
+      },
+      error: (e) => {
+        console.error(e);
+        this.swal.errorMessage("No se pudieron cargar las imagenes del producto");
+      }
+    });
   }
   
 
@@ -126,5 +149,78 @@ export class ProductImageComponent {
     $("#modalForm").modal("show");
   }
 
+  newImage($event:any){
+    console.log("Se ha llegado");
+    this.ngxService.open($event, {
+      aspectRatio: 1/1,
+      autoCropArea: 1,
+      resizeToWidth: 360,
+      resizeToHeight: 360,
+    }).subscribe(data => {
+      this.saveProductImage(data.base64!);
+    });
+  }
+
+  saveProductImage(image:string){
+    let productImage: ProductImage = new ProductImage();
+    productImage.image = image;
+    productImage.product_id = this.id;
+    console.log(productImage);
+    this.productImageService.uploadProductImage(productImage).subscribe({
+      next: (v) => {
+        this.swal.successMessage("Imagen guardada exitosamente");
+        this.getProductDetail();
+      },
+      error: (e) => {
+        console.error(e);
+        this.swal.errorMessage("No se pudo guardar la imagen del producto");
+      }
+    });
+  }
+
+  deleteProductImage(id:number){
+    this.productImageService.deleteProductImage(id).subscribe({
+      next: (v) => {
+        this.getProductDetail();
+        this.swal.successMessage("Imagen eliminada exitosamente");
+      },
+      error: (e) => {
+        console.error(e);
+        this.swal.errorMessage("No se pudo eliminar la imagen del producto");
+      }
+    });
+  }
+
+  updateImage($event:any, id:number){
+    event?.stopPropagation();
+    this.ngxService.open($event, {
+      aspectRatio: 1/1,
+      autoCropArea: 1,
+      resizeToWidth: 360,
+      resizeToHeight: 360,
+    }).subscribe(data => {
+      this.updateProductImage(data.base64!,id);
+    });
+  }
+
+  updateProductImage(image:string, id:number){
+    let productImage: ProductImage = new ProductImage();
+    productImage.product_image_id = id;
+    productImage.image = image;
+    productImage.product_id = this.id;
+    this.deleteProductImage(id);
+    this.productImageService.uploadProductImage(productImage).subscribe({
+      next: (v) => {
+        this.getProductDetail();
+        this.swal.successMessage("Imagen actualizada exitosamente");
+      },
+      error: (e) => {
+        console.error(e);
+        this.swal.errorMessage("No se pudo actualizar la imagen del producto");
+      }
+    });
+  }
+
 }
+
 

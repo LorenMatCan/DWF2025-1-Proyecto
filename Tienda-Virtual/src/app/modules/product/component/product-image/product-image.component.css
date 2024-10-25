@@ -4,3 +4,21 @@
     font-size: large;
 }
 
+.carousel-del {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  #update {
+    margin-right: auto; /* Alinea el label a la izquierda */
+    cursor: pointer;
+    padding-left: 30px;
+  }
+  
+  .trash {
+    margin-left: auto; /* Alinea el icono de la papelera a la derecha */
+    cursor: pointer;
+    padding-right: 30px;
+  }
