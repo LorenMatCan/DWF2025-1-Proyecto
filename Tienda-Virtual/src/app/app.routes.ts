@@ -8,6 +8,7 @@ import { RegisterComponent } from './modules/auth/component/register/register.co
 import { SecuredComponent } from './modules/auth/component/secured/secured.component';
 import { authenticationGuard } from './modules/auth/authentication.guard';
 import { ProductComponent } from './modules/product/component/product/product.component';
+import { InvoiceComponent } from './modules/invoice/component/invoice/invoice.component';
 import { ProductImageComponent } from './modules/product/component/product-image/product-image.component';
 export const routes: Routes = [
     {
@@ -25,6 +26,7 @@ export const routes: Routes = [
     {
         path: 'secured',
         component: SecuredComponent, 
+        redirectTo: '',
         canActivate: [authenticationGuard]
     },
     {
@@ -39,5 +41,7 @@ export const routes: Routes = [
         path: '',
         component: HomeComponent
     },
+    { path: 'invoice', 
+    component: InvoiceComponent }
 
 ];
