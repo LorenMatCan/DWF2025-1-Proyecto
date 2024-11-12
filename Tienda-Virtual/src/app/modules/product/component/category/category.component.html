@@ -3,18 +3,29 @@
 
     <div class=" card">
         <div class="card-header">
-          <h1>Categorías
-          </h1>
-          <button type="btn btn-primary btn-new" (click)="showModalForm()" id="boton" >Nueva Categoria</button>
+
+          <div class="row">
+            <div class="col">
+              <h4>Categorias</h4>
+            </div>
+            <div class="col">
+              <button type="button" class="btn btn-primary" style="float: right;" (click)="showModalForm()">
+                <i class="ph ph-plus-circle"></i>
+                Agregar categoria
+              </button>
+            </div>
+        </div>
+
+        </div>
           <div class="card-body">
-            <table class="table table-dark">4200
-              <thead>
-                <tr>
+            <table class="table">
+              <thead class="thead-dark">
+                <tr class="table-primary">
                   <th scope="col">Id</th>
                   <th scope="col">Categoria</th>
                   <th scope="col">Tag</th>
                   <th scope="col">Estado</th>
-                  <th scope="col">Editar</th>
+                  <th scope="col">Más</th>
                 </tr>
               </thead>
                 <tbody>
@@ -24,28 +35,42 @@
                             <td>{{item.category}}</td>
                             <td>{{item.tag}}</td>
                             <td>
-                              <a *ngIf="item.status == 0" (click)="enableCategory(item.category_id)">
-                                <div class="td-status td-status-active">{{"Inactivo"}}</div>
-                              </a>
-                              <a *ngIf="item.status == 1" (click)="disableCategory(item.category_id)">
-                                <div class="td-status td-status-inactive">{{"Activo"}}</div>
-                              </a>
+                              <div class="td-status" [ngClass]="{'td-status-enable': item.status == 1, 'td-status-disable': item.status == 0}" >
+                                {{ item.status == 0 ? "Inactivo" : "Activo" }}
+                                </div>
                             </td>
                             <td>
-                              <a (click)="updateCategory(item)">
-                                <i class="ph ph-note-pencil icon-text-ul"></i>Editar
-                              </a>
+                              <div class="dropdown">
+                                <!-- dots button  -->
+                                <button class="dropdown-button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                  <i class="ph ph-dots-three-outline-vertical icon-menu"></i>
+                                </button>
+            
+                                <!-- menu options -->
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                  <a class="dropdown-item" (click)="updateCategory(item)">
+                                    <i class="ph ph-eye icon-text-ul"></i>Editar
+                                  </a>
+                                  @if(item.status != 0){
+                                    <a class="dropdown-item disable-item" (click)="disableCategory(item.category_id)">
+                                      <i class="ph ph-x-circle icon-text-ul"></i>Desactivar
+                                    </a>
+                                  }@else {
+                                    <a class="dropdown-item enable-item" (click)="enableCategory(item.category_id)">
+                                      <i class="ph ph-check-circle icon-text-ul"></i>Activar
+                                    </a>
+                                  }
+                                </div>
+                              </div>
+                            </td>
+                            
                         <tr>
                             }
                     </tbody>
             </table>
           </div>
-          <div class="card-footer">
-            <small>27 de agosto de 2024</small>
-        </div>
           
-      </div>
-    
+
     </div>
 </div>
 

@@ -34,5 +34,12 @@
   color: red;
 }
   
+.color-red{
+  color: red;
+}
+
+body {
+  background-color: #8b848c;
+}
 
 /*# sourceMappingURL=bootstrap.min.css.map */

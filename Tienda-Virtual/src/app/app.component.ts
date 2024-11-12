@@ -14,3 +14,5 @@ import { ThemeSelectorComponent } from './modules/layout/component/theme-selecto
 export class AppComponent {
   title = 'Tienda-Virtual';
 }
+
+

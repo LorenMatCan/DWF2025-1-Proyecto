@@ -1,79 +1,74 @@
-<div class="card border-light mb-3">
+<div class="body-content">
+<div class=" card">
+  <div class="card-header">
 
-    <!-- Card header -->
-
-    <div class="card-header">
-      <div class="row">
-          <div class="col">
-            <h4>Listado de productos</h4>
-          </div>
-          <div class="col">
-            <button type="button" class="btn btn-primary" style="float: right;" (click)="showModalForm()">
-              <i class="ph ph-plus-circle"></i>
-              Agregar producto
-            </button>
-          </div>
+    <div class="row">
+      <div class="col">
+        <h4>Productos</h4>
       </div>
-    </div>
+      <div class="col">
+        <button type="button" class="btn btn-primary" style="float: right;" (click)="showModalForm()">
+          <i class="ph ph-plus-circle"></i>
+          Agregar producto
+        </button>
+      </div>
+  </div>
 
-    <!-- Card body -->
-
+  </div>
     <div class="card-body">
-
-        <!-- Region table  -->
-
-        <table class="table">
-            <thead class="thead-dark">
-              <tr class="table-primary">
-                  <th>Id</th>
-                  <th>Gtin</th>
-                  <th>Producto</th>
-                  <th>Precio</th>
-                  <th>Estatus</th>
-                  <th>Más</th>
-              </tr>
-            </thead>
-            <tbody>
-                @for(product of products; track product; let i = $index ) {
-                    <tr>
-                        <td>{{ i + 1 }}</td>
-                        <td>{{ product.gtin }}</td>
-                        <td>{{ product.product }}</td>
-                        <td>{{ product.price | currency: 'USD'}}</td>
-                        <td>
-                          <div class="td-status" [ngClass]="{'td-status-enable': product.status == 1, 'td-status-disable': product.status == 0}" >
-                            {{ product.status == 0 ? "Inactivo" : "Activo" }}
-                            </div>
-                        </td>
-
-                        <td>
-                          <div class="dropdown">
-                            <!-- dots button  -->
-                            <button class="dropdown-button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                              <i class="ph ph-dots-three-outline-vertical icon-menu"></i>
-                            </button>
-        
-                            <!-- menu options -->
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                              <a class="dropdown-item" (click)="showProduct(product.gtin)">
-                                <i class="ph ph-eye icon-text-ul"></i>Ver detalles
-                              </a>
-                              @if(product.status != 0){
-                                <a class="dropdown-item disable-item" (click)="disableProduct(product.product_id)">
-                                  <i class="ph ph-x-circle icon-text-ul"></i>Desactivar
-                                </a>
-                              }@else {
-                                <a class="dropdown-item enable-item" (click)="enableProduct(product.product_id)">
-                                  <i class="ph ph-check-circle icon-text-ul"></i>Activar
-                                </a>
-                              }
-                            </div>
-                          </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr class="table-primary">
+              <th>Id</th>
+              <th>Gtin</th>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Estatus</th>
+              <th>Más</th>
+          </tr>
+        </thead>
+        <tbody>
+            @for(product of products; track product; let i = $index ) {
+                <tr>
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ product.gtin }}</td>
+                    <td>{{ product.product }}</td>
+                    <td>{{ product.price | currency: 'USD'}}</td>
+                    <td>
+                      <div class="td-status" [ngClass]="{'td-status-enable': product.status == 1, 'td-status-disable': product.status == 0}" >
+                        {{ product.status == 0 ? "Inactivo" : "Activo" }}
+                        </div>
+                    </td>
+    
+                    <td>
+                      <div class="dropdown">
+                        <!-- dots button  -->
+                        <button class="dropdown-button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="ph ph-dots-three-outline-vertical icon-menu"></i>
+                        </button>
+    
+                        <!-- menu options -->
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" (click)="showProduct(product.gtin)">
+                            <i class="ph ph-eye icon-text-ul"></i>Ver detalles
+                          </a>
+                          @if(product.status != 0){
+                            <a class="dropdown-item disable-item" (click)="disableProduct(product.product_id)">
+                              <i class="ph ph-x-circle icon-text-ul"></i>Desactivar
+                            </a>
+                          }@else {
+                            <a class="dropdown-item enable-item" (click)="enableProduct(product.product_id)">
+                              <i class="ph ph-check-circle icon-text-ul"></i>Activar
+                            </a>
+                          }
+                        </div>
+                      </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+      
     </div>
 </div>
 
@@ -190,3 +185,11 @@
       </div>
     </div>
   </div>
+</div>
+
+
+
+
+
+
+
