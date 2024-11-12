@@ -10,6 +10,10 @@ import { authenticationGuard } from './modules/auth/authentication.guard';
 import { ProductComponent } from './modules/product/component/product/product.component';
 import { InvoiceComponent } from './modules/invoice/component/invoice/invoice.component';
 import { ProductImageComponent } from './modules/product/component/product-image/product-image.component';
+import { CustomerComponent } from './modules/customer/component/customer/customer.component';
+import { CustomerImageComponent } from './modules/customer/component/customer-image/customer-image.component';
+import { InvoiceDetailComponent } from './modules/invoice/component/invoice-detail/invoice-detail.component';
+import { ProductDetailComponent } from './modules/product/component/product-detail/product-detail.component';
 export const routes: Routes = [
     {
         path: '',
@@ -42,6 +46,22 @@ export const routes: Routes = [
         component: ProductImageComponent
     },
     { path: 'invoice', 
-    component: InvoiceComponent }
+    component: InvoiceComponent },
+    {
+        path: 'customer',
+        component: CustomerComponent
+    },
+    {
+        path: 'customer/:rfc',
+        component: CustomerImageComponent
+    },
+    {
+        path: 'invoice/:id',
+        component: InvoiceDetailComponent
+    },
+    {
+        path: ':gtin',
+        component: ProductDetailComponent
+    }
 
 ];

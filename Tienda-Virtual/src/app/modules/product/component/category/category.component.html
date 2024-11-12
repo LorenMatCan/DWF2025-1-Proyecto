@@ -3,9 +3,20 @@
 
     <div class=" card">
         <div class="card-header">
-          <h1>Categorías
-          </h1>
-          <button type="btn btn-primary btn-new" (click)="showModalForm()" id="boton" >Nueva Categoria</button>
+
+          <div class="row">
+            <div class="col">
+              <h4>Categorias</h4>
+            </div>
+            <div class="col">
+              <button type="button" class="btn btn-primary" style="float: right;" (click)="showModalForm()">
+                <i class="ph ph-plus-circle"></i>
+                Agregar categoria
+              </button>
+            </div>
+        </div>
+
+        </div>
           <div class="card-body">
             <table class="table">
               <thead class="thead-dark">
@@ -59,8 +70,7 @@
             </table>
           </div>
           
-      </div>
-    
+
     </div>
 </div>
 

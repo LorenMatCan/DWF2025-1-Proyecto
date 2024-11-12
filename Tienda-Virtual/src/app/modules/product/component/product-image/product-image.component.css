@@ -1,4 +1,10 @@
 
+.body-content{
+  max-width: 1280px;
+  margin: auto;
+  margin-top: 16px;
+}
+
 #product-title{
     text-align: center;
     font-size: large;

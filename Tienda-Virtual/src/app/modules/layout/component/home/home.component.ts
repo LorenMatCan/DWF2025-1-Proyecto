@@ -24,6 +24,8 @@ export class HomeComponent {
 
   swal: SwalMessages = new SwalMessages(); // swal messages
 
+  isAdmin = false;
+
   constructor(
     private categoryService: CategoryService,
     private productService: ProductService,
@@ -33,6 +35,15 @@ export class HomeComponent {
 
   ngOnInit(){
     this.getProducts();
+    if(localStorage.getItem("user")){
+      let user = JSON.parse(localStorage.getItem("user")!);
+      if(user.rol == "ADMIN"){
+        this.isAdmin = true;
+      }else{
+        this.isAdmin = false;
+      }
+    }
+
   }
 
   getProducts(){
@@ -64,6 +75,16 @@ export class HomeComponent {
       }
     });
   }
+
+  showProduct(gtin: string){
+    if (this.isAdmin){
+      this.router.navigate(["/product/"+gtin]);
+    }
+    else{
+      this.router.navigate(["/"+gtin]);
+    }
+  }
+
 
 
 
