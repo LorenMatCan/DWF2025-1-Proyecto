@@ -8,6 +8,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     padding: 10px;
   }
   
@@ -22,3 +23,19 @@
     cursor: pointer;
     padding-right: 30px;
   }
+
+.indicator{
+ box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+
+
+.carousel-control-prev-icon{
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+}
+
+.carousel-control-next-icon{
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+}

@@ -59,26 +59,40 @@ export class CategoryComponent {
   });
   }
 
+
   enableCategory(id: number):void{
-    this.categoryService.activateCategory(id).subscribe({
-      next: (v) => {
-        this.swal.successMessage("La categoria ha sido activada");
-        this.getCategories();
-      },
-      error: (e) => {
-        this.swal.errorMessage("No se pudo activar la categoria");
+    this.swal.confirmMessage.fire({
+      title: "Favor de confirmar la activación",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.categoryService.activateCategory(id).subscribe({
+          next: (v) => {
+            this.swal.successMessage("La categoria ha sido activada");
+            this.getCategories();
+          },
+          error: (e) => {
+            this.swal.errorMessage("No se pudo activar la categoria");
+          }
+        });
       }
     });
   }
-  
+
   disableCategory(id: number):void{
-    this.categoryService.deleteCategory(id).subscribe({
-      next: (v) => {
-        this.swal.successMessage("La categoria ha sido desactivada");
-        this.getCategories();
-      },
-      error: (e) => {
-        this.swal.errorMessage("No se pudo eliminar la categoria");
+    this.swal.confirmMessage.fire({
+      title: "Favor de confirmar la activación",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.categoryService.deleteCategory(id).subscribe({
+          next: (v) => {
+            this.swal.successMessage("La categoria ha sido desactivada");
+            this.getCategories();
+          },
+          error: (e) => {
+            this.swal.errorMessage("No se pudo eliminar la categoria");
+          }
+        
+        });
       }
     });
   }
@@ -136,7 +150,7 @@ export class CategoryComponent {
     this.form.reset();
     this.form.controls['category'].setValue(category.category);
     this.form.controls['tag'].setValue(category.tag);
-
+    this.swal.successMessage("Se ha actualizado la categoria"); 
     this.submitted = false;
     $("#modalForm").modal("show");
 

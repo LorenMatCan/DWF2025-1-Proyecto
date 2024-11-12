@@ -178,15 +178,23 @@ export class ProductImageComponent {
     });
   }
 
-  deleteProductImage(id:number){
-    this.productImageService.deleteProductImage(id).subscribe({
-      next: (v) => {
-        this.getProductDetail();
-        this.swal.successMessage("Imagen eliminada exitosamente");
-      },
-      error: (e) => {
-        console.error(e);
-        this.swal.errorMessage("No se pudo eliminar la imagen del producto");
+ 
+  
+  deleteProductImage(id: number):void{
+    this.swal.confirmMessage.fire({
+      title: "Favor de confirmar la activación",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.productImageService.deleteProductImage(id).subscribe({
+          next: (v) => {
+            this.swal.successMessage("La imagen ha sido eliminada");
+            this.getProductDetail();
+          },
+          error: (e) => {
+            this.swal.errorMessage("No se pudo eliminar la imagen");
+          }
+        
+        });
       }
     });
   }

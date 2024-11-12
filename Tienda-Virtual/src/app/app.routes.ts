@@ -12,6 +12,10 @@ import { InvoiceComponent } from './modules/invoice/component/invoice/invoice.co
 import { ProductImageComponent } from './modules/product/component/product-image/product-image.component';
 export const routes: Routes = [
     {
+        path: '',
+        component: HomeComponent
+    },
+    {
         path: 'category',
         component: CategoryComponent
     },
@@ -36,10 +40,6 @@ export const routes: Routes = [
     {
         path: 'product/:gtin',
         component: ProductImageComponent
-    },
-    {
-        path: '',
-        component: HomeComponent
     },
     { path: 'invoice', 
     component: InvoiceComponent }
