@@ -14,6 +14,7 @@ import { CustomerComponent } from './modules/customer/component/customer/custome
 import { CustomerImageComponent } from './modules/customer/component/customer-image/customer-image.component';
 import { InvoiceDetailComponent } from './modules/invoice/component/invoice-detail/invoice-detail.component';
 import { ProductDetailComponent } from './modules/product/component/product-detail/product-detail.component';
+import { ViewCategoryComponent } from './modules/product/component/view-category/view-category.component';
 export const routes: Routes = [
     {
         path: '',
@@ -62,6 +63,10 @@ export const routes: Routes = [
     {
         path: ':gtin',
         component: ProductDetailComponent
+    },
+    {
+        path: 'category/:category',
+        component: ViewCategoryComponent
     }
 
 ];
