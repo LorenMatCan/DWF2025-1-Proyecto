@@ -7,7 +7,9 @@ import { CategoryService } from '../../_service/category.service';
 import { Category } from '../../_model/category';
 import { ProductImage } from '../../_model/product-image';
 import { ProductImageService } from '../../_service/product-image.service';
-import { NgxPhotoEditorService } from 'ngx-photo-editor';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Cart } from '../../../invoice/_model/cart';
+import { CartService } from '../../../invoice/_service/cart.service';
 
 
 
@@ -30,7 +32,13 @@ export class ProductDetailComponent {
   categories: Category[] = [];
   id = 0;
   productImgs: ProductImage[] = [];
+  stock: number[]=[]
 
+
+
+  form = this.formBuilder.group({
+    quantity: ["",[Validators.required]],
+  });
 
 
   constructor(
@@ -38,11 +46,14 @@ export class ProductDetailComponent {
     private rutaActual: ActivatedRoute = new ActivatedRoute(), // ruta actual
     private productService: ProductService, 
     private categoryService: CategoryService,
-    private productImageService: ProductImageService
+    private productImageService: ProductImageService,
+    private formBuilder: FormBuilder,
+    private cartService: CartService
   ){}
 
 
   ngOnInit(){
+
     this.gtin = this.rutaActual.snapshot.params['gtin'];
     this.product = this.getProductDetail();
     this.getCategories();
@@ -54,6 +65,7 @@ export class ProductDetailComponent {
       this.product = v;
       this.id = v.product_id;
       this.getProductImages(v.product_id);
+      this.getStock(v.stock);
     },
     error: (e) => {
       this.swal.errorMessage("Hubo un error de conexión");
@@ -92,6 +104,32 @@ export class ProductDetailComponent {
     });
   }
 
+  getStock(stock:number){
+    console.log(stock);
+    for (let i = 0; i < stock; i++) {
+      this.stock.push(i);
+    }
+    console.log(this.stock);
+  }
+
+  onSubmit(){
+    if (this.form.invalid) return;
+    let cart = {
+      gtin: this.gtin,
+      quantity: this.form.value.quantity
+    }
+
+    this.cartService.addToCart(cart).subscribe({
+      next: (v) => {
+        this.swal.successMessage("Producto añadido al carrito");
+      },
+      error: (e) => {
+        console.error(e);
+        this.swal.errorMessage(e.error!.message);
+      }
+    });
+    
+  }
 }
 
 
