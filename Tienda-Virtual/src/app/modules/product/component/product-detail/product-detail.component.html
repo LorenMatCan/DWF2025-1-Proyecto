@@ -3,11 +3,6 @@
     <div class="card">
 
         <div class="card-body">
-            <div class="product-title" id = "product-title">
-                <h3>
-                    {{ product.product }}
-                </h3>
-            </div>
             <div class="row">
     
                 <!-- product image  -->
@@ -60,53 +55,51 @@
     
                 <!-- product data  -->
                 <div class="col-md-8">
-                    <div class="card">
+                    <div >
+                        <div class="col-md-6">
+                            <h2 class="display-5 fw-bolder">{{ product.product }}</h2>
+                            <p>Código de producto: {{product.gtin}}</p>
+                            
+                            <div class="fs-5 mb-5">
+                                <h3>${{ product.price }}</h3>
+                            </div>
+                            <p class="lead">{{ product.description }}</p>
+                            <div class="d-flex">
+                                
+                        
+                                <div class="text-center d-flex justify-content-left "> 
+                                    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-inline">
+                                    <label for="quantity" class="form-label">Cantidad:</label>
+                                    
+                                    <select  formControlName="quantity" id="quantity" class="form-select form-select-sm" aria-label=".form-select-sm example" >
+                                        @for(stock of stock; track stock; let i = $index ) {
+                                            <option value="{{i+1}}">{{i+1}}</option>
+                                        }
+        
+                                    </select>   
+
+                                    <button type="button" class="btn btn-primary btn-block" (click)="onSubmit()" >
+                                        <i class="ph ph-plus-circle"></i>
+                                        Agregar al carrito
+                                      </button>
+
+                                    </form>
+                                </div>
                     
-    
-                        <div class="card-body-product">
-    
-                            <!-- product -->
-                            <table class="table" id="table">
-                                <tbody>
-                                    <!-- gtin -->
-                                    <tr>
-                                        <th class="col-md-4">GTIN</th>
-                                        <td>{{ product.gtin }}</td>
-                                    </tr>
-    
-                                    <!-- description -->
-                                    <tr>
-                                        <th class="col-md-4">Descripción</th>
-                                        <td>{{ product.description }}</td>
-                                    </tr>
-    
-                                    <!-- price -->
-                                    <tr>
-                                        <th class="col-md-4">Precio</th>
-                                        <td>{{ product.price }}</td>
-                                    </tr>
-    
-                                    <!-- stock -->
-                                    <tr>
-                                        <th class="col-md-4">Stock</th>
-                                        <td>{{ product.stock }}</td>
-                                    </tr>
-    
-                                    <!-- category_id -->
-                                    <tr>
-                                        <th class="col-md-4">Categoría</th>
-                                        <td>{{ product.category }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                 
+                            </div>
                         </div>
+
+                    
+
+
                     </div>
                 </div>
             </div>
         </div>
     
     
-       
     
         
     </div>
+</div>
