@@ -95,6 +95,7 @@ export class ViewCategoryComponent {
 
   asignImage(product: DtoProductList){
      img: ProductImage;
+     product.image = "";
     this.productImageService.getProductImages(product.product_id).subscribe({
       next: (v) => {
         const img = v[0];

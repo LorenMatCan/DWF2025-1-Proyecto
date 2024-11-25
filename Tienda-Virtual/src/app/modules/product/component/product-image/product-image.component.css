@@ -45,3 +45,31 @@
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
   border-radius: 20px;
 }
+.uploadImage{
+  border-radius: 20px;
+  width: 50%;
+  margin-bottom: 10px;
+  text-wrap: normal;
+  line-height: 20px;
+}
+
+
+.uploadImage:hover{
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+p#uploadImageText{
+  margin-top: 20px;
+}
+
+
+.trash :hover{
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+#update :hover{
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}

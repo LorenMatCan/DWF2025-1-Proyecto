@@ -65,8 +65,11 @@
                             </div>
                             <p class="lead">{{ product.description }}</p>
                             <div class="d-flex">
-                                
-                        
+
+                            @if (product.stock == 0) {
+                                <p class="text-danger">Producto agotado</p>
+                            }@else {
+
                                 <div class="text-center d-flex justify-content-left "> 
                                     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-inline">
                                     <label for="quantity" class="form-label">Cantidad:</label>
@@ -85,6 +88,10 @@
 
                                     </form>
                                 </div>
+
+                            }
+                                
+                                
                     
                                  
                             </div>

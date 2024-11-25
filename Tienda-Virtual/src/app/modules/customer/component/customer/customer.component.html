@@ -55,22 +55,22 @@
                         <div class="dropdown">
                             <!-- dots button  -->
                             <button class="dropdown-button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                              <i class="ph ph-dots-three-outline-vertical icon-menu"></i>
+                              <i class="fa-sharp fa-solid fa-ellipsis"></i>
                             </button>
         
                             <!-- menu options -->
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                               <a class="dropdown-item" (click)="showCustomer(customer.rfc)">
-                                <i class="ph ph-eye icon-text-ul"></i>Ver detalles
+                                <i class="fa-sharp fa-solid fa-eye"></i>   Ver detalles
                               </a>
                               @if (customer.status == 0) {
                                 <a class="dropdown-item enable-item" (click)="enableCustomer(customer.customer_id)">
-                                  <i class="ph ph-check-circle icon-text-ul"></i>Activar
+                                  <i class="fa-sharp fa-solid fa-circle-check"></i>   Activar
                                 </a>
                               }
                               @if (customer.status == 1) {
                                 <a class="dropdown-item disable-item" (click)="disableCustomer(customer.customer_id)">
-                                    <i class="ph ph-x-circle icon-text-ul"></i>Desactivar
+                                  <i class="fa-sharp fa-solid fa-circle-xmark"></i> Desactivar
                                 </a>
                               }
                             </div>
