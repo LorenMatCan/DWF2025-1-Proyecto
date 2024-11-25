@@ -5,14 +5,13 @@
         <div class="row">
             <div class="col-md">
                 <span class="btn-return" (click)="redirect(['product'])">
-                    <i class="ph ph-arrow-circle-left icon-text-button"></i>
-                    Regresar
+                    <i class="fa-sharp fa-solid fa-arrow-left"></i>
                 </span>
             </div>
 
             <div class="col-md">
                 <span class="edit-product" (click)="updateProducto(product)" >
-                    <i class="ph ph-note-pencil icon-text-button"></i>
+                    <i class="fa-sharp fa-solid fa-pencil"></i> 
                     Editar producto
                 </span>
             </div>
@@ -81,7 +80,7 @@
                                 <div class="carousel-del">
                                     <a (click)="deleteProductImage(prod.product_image_id)" class="trash"><i class="fas fa-trash-alt cursor-pointer"></i></a>
                                 </div>
-                                <img src="{{ prod.image !== '' ? prod.image : 'assets/no-product-image.png'}}"
+                                <img src="{{ prod.image !== ' ' ? prod.image : 'no-product-image.png'}}"
                                     class="d-block w-100" alt="...">
                                     <label for="updateImage" class="updateImage">
                                         <input type="file" (change)="updateImage($event,prod.product_image_id)" id="updateImage" 
@@ -96,11 +95,10 @@
                         </div>
                     </div>
                     <div class="edit-product-image text-center">
-                        <label for="uploadImage" class="uploadImage">
+                        <label for="uploadImage" class="uploadImage"  >
                             <input type="file" (change)="newImage($event)" id="uploadImage" 
                                 style="display:none">
-                            <i class="ph ph-note-pencil icon-text-button"></i>
-                            <p class="item-txt"> Añadir imagen </p>
+                                <p class="item-txt" id="uploadImage"> <i class="fa-sharp fa-solid fa-circle-plus"></i> Añadir imagen </p>
                         </label>
                     </div>
                     

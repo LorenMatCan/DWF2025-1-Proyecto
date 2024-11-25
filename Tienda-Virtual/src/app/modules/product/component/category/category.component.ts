@@ -150,7 +150,7 @@ export class CategoryComponent {
     this.form.reset();
     this.form.controls['category'].setValue(category.category);
     this.form.controls['tag'].setValue(category.tag);
-    this.swal.successMessage("Se ha actualizado la categoria"); 
+    //this.swal.successMessage("Se ha actualizado la categoria"); 
     this.submitted = false;
     $("#modalForm").modal("show");
 

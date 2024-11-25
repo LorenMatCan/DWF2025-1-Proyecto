@@ -53,6 +53,7 @@ export class HomeComponent {
         for (let product of this.products){
           this.asignImage(product);
         }
+        console.log(this.products);
       },
       error: (e) => {
         console.log(e);
@@ -64,6 +65,7 @@ export class HomeComponent {
 
   asignImage(product: DtoProductList){
      img: ProductImage;
+     product.image = "";
     this.productImageService.getProductImages(product.product_id).subscribe({
       next: (v) => {
         const img = v[0];

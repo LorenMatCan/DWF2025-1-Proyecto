@@ -1,7 +1,9 @@
 #block{
     margin-top: 20px;
-    margin-bottom: 10px;
-    padding: 20px;
+    
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
     border-radius: 5px;
     background-color: #f9f9f9;
     box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.1);
@@ -17,3 +19,6 @@
     text-shadow: 0 0 10px white;
 }
 
+section.py-5{
+    margin-top: -50px;
+}
