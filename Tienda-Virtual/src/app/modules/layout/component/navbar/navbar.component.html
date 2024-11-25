@@ -44,7 +44,6 @@
             <div class="dropdown-menu nav-dropdown-menu">
               <a class="dropdown-item nav-dropdown-item" routerLink="/category">Categorías</a>
               <a class="dropdown-item nav-dropdown-item" routerLink="/customer">Clientes</a>
-              <a class="dropdown-item nav-dropdown-item" routerLink="/invoice">Facturas</a>
               <a class="dropdown-item nav-dropdown-item" routerLink="/product">Productos</a>
             </div>
           </li>
@@ -57,16 +56,18 @@
       <form class="d-flex">
         <input class="form-control me-sm-2 search-by-product" type="search" placeholder="Buscar por producto...">
         <button class="btn btn-secondary my-2 my-sm-0 i-search" type="submit">
-          <i class="ph ph-magnifying-glass"></i>
+          Buscar
         </button>
       </form>
 
       <!-- shopping cart  -->
 
-      @if (loggedIn) {
-        <a class="nav-link" routerLink="#" role="button">
-          <i class="ph ph-shopping-cart i-nav"></i>
+      @if (loggedIn ) {
+        @if(!isAdmin) {
+        <a class="nav-link" routerLink="/cart" role="button" >
+          <i class="fa-solid fa-cart-shopping fa-xl" style="color: #ffffff;"></i>
         </a>
+      }
       }@else {
         <ul class="navbar-nav">
           <a class="nav-link nav-register" (click)="showRegisterModal()">Registrarse</a>
@@ -83,13 +84,14 @@
               <!-- user logo  -->
  
               <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <i class="ph ph-user i-nav"></i>
+                <i class="fa-solid fa-circle-user fa-2xl" style="color: #ffffff;"></i>
               </a>
  
               <!-- user options -->
  
               <div class="dropdown-menu nav-dropdown-menu nav-dropdown-menu-user">
                   <a class="dropdown-item nav-dropdown-item" routerLink="#">Perfil</a>
+                  <a class="dropdown-item nav-dropdown-item" routerLink="/invoice">Facturas</a>
                   <!-- <a class="dropdown-item nav-dropdown-item" routerLink="#">Configuración</a> -->
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item nav-dropdown-item" (click)="logout()">Cerrar sesión</a>

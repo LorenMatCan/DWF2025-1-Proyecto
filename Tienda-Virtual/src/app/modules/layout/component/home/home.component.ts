@@ -9,10 +9,11 @@ import { ProductImageService } from '../../../product/_service/product-image.ser
 import { Router } from '@angular/router';
 import { ProductImage } from '../../../product/_model/product-image';
 
+
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [SharedModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

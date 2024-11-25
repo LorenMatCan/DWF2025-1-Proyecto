@@ -182,7 +182,7 @@ export class ProductImageComponent {
   
   deleteProductImage(id: number):void{
     this.swal.confirmMessage.fire({
-      title: "Favor de confirmar la activación",
+      title: "¿Está seguro de eliminar la imagen?",
     }).then((result) => {
       if (result.isConfirmed) {
         this.productImageService.deleteProductImage(id).subscribe({
