@@ -33,7 +33,10 @@ export class ProductDetailComponent {
   id = 0;
   productImgs: ProductImage[] = [];
   stock: number[]=[]
-
+  loggedIn = false;
+  productosNoDisponibles = 0;
+  cart: Cart[] = [];
+  agotado = false;
 
 
   form = this.formBuilder.group({
@@ -53,7 +56,9 @@ export class ProductDetailComponent {
 
 
   ngOnInit(){
-
+    if(localStorage.getItem("token")){
+      this.loggedIn = true;
+    }
     this.gtin = this.rutaActual.snapshot.params['gtin'];
     this.product = this.getProductDetail();
     this.getCategories();
@@ -65,7 +70,7 @@ export class ProductDetailComponent {
       this.product = v;
       this.id = v.product_id;
       this.getProductImages(v.product_id);
-      this.getStock(v.stock);
+      this.getcart(v.stock);
     },
     error: (e) => {
       this.swal.errorMessage("Hubo un error de conexión");
@@ -87,8 +92,13 @@ export class ProductDetailComponent {
   }
   
 
-  redirect(url:String[]){
-    this.router.navigate(url); 
+  redirect(){
+    this.id = this.rutaActual.snapshot.params['category'];
+    if (this.id == undefined){
+      this.router.navigate(['/']);
+    }else{
+      this.router.navigate(['/category/'+this.id]);
+    }
   }
 
 
@@ -105,15 +115,22 @@ export class ProductDetailComponent {
   }
 
   getStock(stock:number){
-    console.log(stock);
-    for (let i = 0; i < stock; i++) {
+    const aux = stock - this.productosNoDisponibles;
+    for (let i = 0; i < aux; i++) {
       this.stock.push(i);
     }
-    console.log(this.stock);
+    if (aux== 0){
+      this.form.controls['quantity'].disable();
+      this.agotado = true;
+    }
   }
 
   onSubmit(){
     if (this.form.invalid) return;
+    if (!this.loggedIn){
+      this.swal.errorMessage("Debes iniciar sesión para añadir productos al carrito");
+      return;
+    }
     let cart = {
       gtin: this.gtin,
       quantity: this.form.value.quantity
@@ -122,6 +139,7 @@ export class ProductDetailComponent {
     this.cartService.addToCart(cart).subscribe({
       next: (v) => {
         this.swal.successMessage("Producto añadido al carrito");
+        window.location.reload();
       },
       error: (e) => {
         console.error(e);
@@ -130,6 +148,31 @@ export class ProductDetailComponent {
     });
     
   }
+
+  getcart(stock:number){
+    if (!this.loggedIn){
+      this.getStock(stock);
+      return;
+    };
+    this.cartService.getCart().subscribe({
+      next: (v) => {
+        this.cart = v;
+        for(let i = 0; i < this.cart.length; i++){
+          if(this.cart[i].gtin == this.gtin){
+            this.productosNoDisponibles= this.cart[i].quantity;
+          }
+        }
+        this.getStock(stock)
+      },
+      error: (e) => {
+        console.error(e);
+        this.swal.errorMessage(e.error!.message);
+      }
+    });
+  }
+
+
+
 }
 
 

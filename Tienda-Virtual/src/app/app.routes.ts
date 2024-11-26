@@ -73,6 +73,10 @@ export const routes: Routes = [
     {
         path: 'category/:category',
         component: ViewCategoryComponent
+    },
+    {
+        path: 'category/:category/:gtin',
+        component: ProductDetailComponent
     }
 
 ];

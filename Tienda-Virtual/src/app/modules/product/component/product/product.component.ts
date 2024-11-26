@@ -47,7 +47,17 @@ export class ProductComponent {
   ){}
 
   ngOnInit(){
-    this.getProducts();
+    if(localStorage.getItem("user")){
+      let user = JSON.parse(localStorage.getItem("user")!);
+      if(user.rol == "ADMIN"){
+        this.getProducts();
+      }else{
+        this.router.navigate(['/']);
+      }
+    }else{
+      this.router.navigate(['/']);
+    }
+    
   }
 
   showProduct(gtin: string){

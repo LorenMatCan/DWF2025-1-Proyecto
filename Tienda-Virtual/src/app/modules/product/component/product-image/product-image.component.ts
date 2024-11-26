@@ -56,11 +56,33 @@ export class ProductImageComponent {
 
 
   ngOnInit(){
-    this.gtin = this.rutaActual.snapshot.params['gtin'];
-    this.product = this.getProductDetail();
-    this.getCategories();
+
+    if(localStorage.getItem("user")){
+      let user = JSON.parse(localStorage.getItem("user")!);
+      if(user.rol == "ADMIN"){
+        this.getProduct();
+      }else{
+        this.router.navigate(['/']);
+      }
+    }else{
+      this.router.navigate(['/']);
+    }
+    
+   
   }
 
+  getProduct(){
+    this.productService.getProduct(this.gtin).subscribe({
+      next: (v) => {
+        this.gtin = this.rutaActual.snapshot.params['gtin'];
+        this.product = this.getProductDetail();
+        this.getCategories();
+      },
+      error: (e) => {
+        this.swal.errorMessage("Hubo un error de conexión");
+      }
+      })
+  }
   getProductDetail(){
     this.productService.getProduct(this.gtin).subscribe({
     next: (v) => {

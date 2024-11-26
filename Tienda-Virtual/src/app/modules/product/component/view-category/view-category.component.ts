@@ -113,7 +113,7 @@ export class ViewCategoryComponent {
       this.router.navigate(["/product/"+gtin]);
     }
     else{
-      this.router.navigate(["/"+gtin]);
+      this.router.navigate(["category/"+this.id+"/"+gtin]);
     }
   }
 
