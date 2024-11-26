@@ -98,7 +98,7 @@
                           <input type="text" class="form-control" formControlName="gtin" id="gtin" placeholder="Código GTIN del producto..." 
                               [ngClass]="{'is-invalid': form.controls['gtin'].errors && submitted}" >
                           @if (form.controls['gtin'].errors && submitted) {
-                            <small class="input-error-message">Favor de ingresar un código gtin válido</small>
+                            <small class="color-red">Favor de ingresar un código gtin válido</small>
                           }
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                           <input type="text" class="form-control" formControlName="product" id="product" placeholder="Nombre del producto..." 
                               [ngClass]="{'is-invalid': form.controls['product'].errors && submitted}" >
                           @if (form.controls['product'].errors && submitted) {
-                            <small class="input-error-message">Favor de ingresar un nombre de producto válido</small>
+                            <small class="color-red">Favor de ingresar un nombre de producto válido</small>
                           }
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                           <input type="text" class="form-control" formControlName="price" id="price" placeholder="Precio del producto..." 
                               [ngClass]="{'is-invalid': form.controls['price'].errors && submitted}" >
                           @if (form.controls['price'].errors && submitted) {
-                            <small class="input-error-message">Favor de ingresar un precio válido</small>
+                            <small class="color-red">Favor de ingresar un precio válido</small>
                           }
                         </div>
                     </div>
@@ -137,7 +137,7 @@
                           <input type="text" class="form-control" formControlName="stock" id="stock" placeholder="Número de stock del producto..." 
                               [ngClass]="{'is-invalid': form.controls['stock'].errors && submitted}" >
                           @if (form.controls['stock'].errors && submitted) {
-                            <small class="input-error-message">Favor de ingresar un número de stock válido</small>
+                            <small class="color-red">Favor de ingresar un número de stock válido</small>
                           }
                         </div>
                     </div>  
@@ -155,7 +155,7 @@
                             }
                           </select>
                           @if (form.controls['category_id'].errors && submitted) {
-                            <small class="input-error-message">Favor de seleccionar válida</small>
+                            <small class="color-red">Favor de seleccionar válida</small>
                           }
                         </div>
                     </div>
@@ -168,7 +168,7 @@
                         [ngClass]="{'is-invalid': form.controls['description'].errors && submitted}" >
                       </textarea>
                       @if (form.controls['description'].errors && submitted) {
-                        <small class="input-error-message">Favor de ingresar una descripción válida</small>
+                        <small class="color-red">Favor de ingresar una descripción válida</small>
                       }
                     </div>
                 </div>

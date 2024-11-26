@@ -1,0 +1,77 @@
+<div class="body-content">
+    <div class="card">
+      
+      <!-- card header  -->
+      
+      <div class="card-header">
+        <div class="row">
+          <div class="col">
+            <h4>Mi carrito</h4>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- card body  -->
+
+      <div class="card-body"> 
+        @if(products.length ===0){
+          <div class="col-12">
+            <h4>No hay productos en el carrito</h4>
+          </div>
+        }
+        @else{
+          <div class="row" >
+          
+        
+          
+            <div class="col-9">
+             <table class="table">
+               <thead class="thead-dark">
+                 <tr class="table-primary">
+                     <th>Producto</th>
+                     <th>Precio</th>
+                     <th>Cantidad</th>
+                     <th>Total</th>
+                     <th>Más</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 @for(product of products; track product; let i = $index ) {
+                     <tr>
+   
+                         <td>
+                           <img src="{{ product.image !== '' ? product.image : 'assets/no-product-image.png'}}"  alt="..." style="height:80px ;" />
+                           {{ product.product.product }}
+                         </td>
+                         <td>{{ product.product.price | currency: 'USD'}}</td>
+                         <td>{{ product.quantity }}</td>
+                         <td>{{ product.total | currency: 'USD'}}</td>
+                         <td>
+                           <button class="btn btn-danger" (click)="removeProduct(product.cart_id)">Eliminar</button>
+                         </td>
+                     </tr>
+                 }
+             </tbody>
+   
+           </table>
+           <button class="btn btn-danger" (click)="clearCart()">Vaciar carrito</button>
+            </div>
+            <div class="col">
+               <h4>Total: {{ total | currency: 'USD'}}</h4>
+               <button class="btn btn-primary" (click)="checkout()">Pagar</button> 
+           </div>  
+   
+           <!-- loading  -->
+           
+           
+         <!-- card footer  -->
+         
+         <div class="card-footer text-end">
+           <small>{{ current_date | date: 'dd/MMM/yyyy, h:mm a' }}</small>
+         </div>
+       </div>
+
+        }
+      
+  </div>

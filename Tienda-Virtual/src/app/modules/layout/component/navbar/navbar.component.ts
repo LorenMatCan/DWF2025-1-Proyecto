@@ -6,6 +6,8 @@ import { AuthenticationService } from '../../../auth/_service/authentication.ser
 import { LoginComponent } from "../../../auth/component/login/login.component";
 import { RegisterComponent } from "../../../auth/component/register/register.component";
 import { SharedModule } from '../../../../shared/shared-module';
+import { routes } from '../../../../app.routes';
+import { Router } from '@angular/router';
 
 declare var $: any; // JQuery
 
@@ -26,7 +28,8 @@ export class NavbarComponent {
 
   constructor(
     private categoryService: CategoryService,
-    private servicioAutenticacion: AuthenticationService
+    private servicioAutenticacion: AuthenticationService,
+    private router: Router
   ){}
 
   ngOnInit(){
@@ -71,5 +74,14 @@ export class NavbarComponent {
   showRegisterModal(){
     $("#registerModal").modal("show");
   }
+
+  showCategory(category: number){
+    this.router.navigate(["category/"+category])
+  .then(() => {
+    window.location.reload();
+  });
+  }
+
+  
 
 }

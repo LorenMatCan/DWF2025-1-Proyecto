@@ -15,10 +15,16 @@ import { CustomerImageComponent } from './modules/customer/component/customer-im
 import { InvoiceDetailComponent } from './modules/invoice/component/invoice-detail/invoice-detail.component';
 import { ProductDetailComponent } from './modules/product/component/product-detail/product-detail.component';
 import { ViewCategoryComponent } from './modules/product/component/view-category/view-category.component';
+import { CartComponent } from './modules/invoice/component/cart/cart.component';
 export const routes: Routes = [
     {
         path: '',
         component: HomeComponent
+    },
+    {
+        path : 'cart',
+        component: CartComponent
+
     },
     {
         path: 'category',
@@ -67,6 +73,10 @@ export const routes: Routes = [
     {
         path: 'category/:category',
         component: ViewCategoryComponent
+    },
+    {
+        path: 'category/:category/:gtin',
+        component: ProductDetailComponent
     }
 
 ];

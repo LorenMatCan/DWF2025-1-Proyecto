@@ -1,1 +1,109 @@
-<p>Revisa en la consola el detalle de la factura :)</p>
+
+<div class="body-content">
+
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md">
+                    <span class="btn-return" (click)="redirect(['invoice'])">
+                        <i class="fa-sharp fa-solid fa-arrow-left"></i>
+                    </span>
+                </div>
+                <!--Cuerpo de la factura-->
+                <div class = "card">
+                    <!--Cabeza Factura todos los datos son falsos-->
+                    <div class="row">
+                        <div class="col">
+                            <b>RFC emisr:</b><br>
+                            <b>Nombre emisor:</b><br>
+                            <b>RFC receptor:</b><br>
+                            <b>Nombre receptor:</b><br>
+                            <b>Régimen fisical:</b><br>
+                            <b>Uso CFDI:</b><br>
+                        </div>
+                        <div class="col">
+                            NOEX123456ISTE<br>
+                            Frankies' Workshop<br>
+                            {{invoice.rfc}}<br>
+                            {{nombre}}<br>
+                            General ley personas Morales<br>
+                            Gastos en general<br>
+                            
+
+                        </div>
+                        <div class="col">
+                            <b>Folio Físcal:</b><br>
+                            <b>Nombre emisor:</b><br>
+                            <b>No.serie C5D:</b><br>
+                            <b>Fecha emición:</b><br>
+                            <b>Hora emisión:</b><br>
+                            <b>Efecto de comprobante:</b><br>
+                        </div>
+                        <div class="col">
+                            {{invoice.invoice_id}}<br>
+                            Frankies' Workshop<br>
+                            0000100000051613241<br>
+                            {{fecha}}<br>
+                            {{hora}}<br>
+                            Ingreso<br>
+  
+                        </div>
+
+                    </div>
+                    <!--Fin del inicio de la factura-->
+                    <div class = "row">
+                        <table class="table">
+                            <thead class="thead-dark">
+                              <tr class="table-primary">
+                                  <th>No.</th>
+                                  <th>GTIN</th>
+                                  <th>Cantidad</th>
+                                  <th>Costo unitario</th>
+                                  <th>Impuesto</th>
+                                <th>Importe total </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @for(item  of invoice.items; track item; let i = $index ) {
+                                    <tr>
+                                        <td>{{i+1}}</td>
+                                        <td>{{item.gtin}}</td>
+                                        <td>{{item.quantity}}</td>
+                                        <td>{{item.unit_price | currency: 'USD'}}</td>
+                                        <td>{{item.taxes | currency: 'USD'}}</td>
+                                        <td>{{item.total | currency: 'USD'}}</td>
+                                    </tr>
+                                }
+                            </tbody>
+                          
+                
+                        </table>
+                    </div>
+                    <!--Fin de la descripción de productos-->
+                    <div class="row">
+                        <div class="col-7">
+                        </div>
+                        <div class="col">
+                            <b>Subtotal:</b><br>
+                            <b>Impuestos:</b><br>
+                            <b>Total:</b><br>
+                        </div>
+                        <div class="col">
+                            {{invoice.subtotal | currency: 'USD'}}<br>
+                            {{invoice.taxes | currency: 'USD'}}<br>
+                            {{invoice.total | currency: 'USD'}}<br>
+                           
+                        </div>
+                    </div>
+
+                
+                <!--Fin de la facutra-->    
+                </div>
+
+            </div>
+        </div>
+        <br>
+
+    <!-- Divs finales -->
+    </div>
+</div>

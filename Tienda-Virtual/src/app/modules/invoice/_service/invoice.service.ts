@@ -23,5 +23,7 @@ export class InvoiceService {
   }
 
   /* REQUERIMIENTO 4. Implementar servicio Invoice - función generateInvoice() */
-  generateInvoice() {}
+  generateInvoice() {
+    return this.http.post(api_dwb_uri + this.source, null);
+  }
 }

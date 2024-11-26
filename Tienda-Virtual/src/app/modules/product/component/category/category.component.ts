@@ -5,6 +5,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import Swal from 'sweetalert2';
 import { SharedModule } from '../../../../shared/shared-module';
 import { SwalMessages } from '../../../../shared/swal-messages';
+import { Router } from '@angular/router';
+
 
 
 
@@ -25,6 +27,10 @@ export class CategoryComponent {
 
   updated: number = 0; 
 
+
+  isAdmin = false;
+
+
  
     form = this.formBuilder.group({
       category: ["",[Validators.required]],
@@ -38,14 +44,25 @@ export class CategoryComponent {
 
   swal: SwalMessages = new SwalMessages();
   
-  constructor(private categoryService: CategoryService, private formBuilder: FormBuilder) {
+  constructor(private categoryService: CategoryService, 
+    private formBuilder: FormBuilder,
+    private router: Router) {
     
   }
 
 
   
   ngOnInit(){
-    this.getCategories();
+    if(localStorage.getItem("user")){
+      let user = JSON.parse(localStorage.getItem("user")!);
+      if(user.rol == "ADMIN"){
+        this.getCategories();
+      }else{
+        this.router.navigate(['/']);
+      }
+    }else{
+      this.router.navigate(['/']);
+    }
   }
 
   getCategories():void{

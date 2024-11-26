@@ -1,6 +1,17 @@
 <div class="body-content">
-
     <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md">
+                    <!--(click)="redirect()"-->
+                    <span class="btn-return"  (click)="redirect()">
+                        <i class="fa-sharp fa-solid fa-arrow-left"></i>
+                    </span>
+                </div>
+    
+
+            </div>
+        </div>
 
         <div class="card-body">
             <div class="row">
@@ -54,9 +65,9 @@
     
     
                 <!-- product data  -->
-                <div class="col-md-8">
+                <div class="col">
                     <div >
-                        <div class="col-md-6">
+                        <div class="col">
                             <h2 class="display-5 fw-bolder">{{ product.product }}</h2>
                             <p>Código de producto: {{product.gtin}}</p>
                             
@@ -70,24 +81,37 @@
                                 <p class="text-danger">Producto agotado</p>
                             }@else {
 
-                                <div class="text-center d-flex justify-content-left "> 
-                                    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-inline">
-                                    <label for="quantity" class="form-label">Cantidad:</label>
+                                @if (agotado){
+                                    <p class="color-red">Ha superado el stock disponible</p>
+                                }
+                                @else {
                                     
-                                    <select  formControlName="quantity" id="quantity" class="form-select form-select-sm" aria-label=".form-select-sm example" >
-                                        @for(stock of stock; track stock; let i = $index ) {
-                                            <option value="{{i+1}}">{{i+1}}</option>
-                                        }
-        
-                                    </select>   
-
-                                    <button type="button" class="btn btn-primary btn-block" (click)="onSubmit()" >
-                                        <i class="ph ph-plus-circle"></i>
-                                        Agregar al carrito
-                                      </button>
-
-                                    </form>
+                                    <div class="text-center d-flex justify-content-left "> 
+                                        
+                                        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-inline">
+                                        <div class="row" id="grupo">
+                                            <div class="col">
+                                        <label for="quantity" class="form-label">Cantidad:</label>
+                                        
+                                        <select  formControlName="quantity" id="quantity" class="form-select form-select-sm" aria-label=".form-select-sm example" >
+                                            @for(stock of stock; track stock; let i = $index ) {
+                                                <option value="{{i+1}}">{{i+1}}</option>
+                                            }
+    
+                                        </select>   
+                                    </div>
+                                    <div class="col">
+    
+                                        <button type="button" class="btn btn-primary btn-block" (click)="onSubmit()" >
+                                            <i class="ph ph-plus-circle"></i>
+                                            Agregar al carrito
+                                          </button>
+                                        </div>
+                                        </div>
+                                        </form>
                                 </div>
+                                }
+                    
 
                             }
                                 
